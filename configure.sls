@@ -3,13 +3,13 @@
 /rw/config/rc.local:
   file.managed:
     - source: 
-      - salt://vpn/rc.local
+      - salt://openvpn/rc.local
     - mode: '0755'
     - replace: True
 
 /rw/config/qubes-firewall-user-script:
   file.managed:
     - source:
-      - salt://vpn/firewall.sh
+      - salt://openvpn/firewall.sh
     - mode: '0755'
     -  replace: True
