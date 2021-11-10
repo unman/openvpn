@@ -1,0 +1,8 @@
+#!/bin/bash
+systemctl unmask openvpn
+VPN_CLIENT='openvpn'
+VPN_OPTIONS='--cd /rw/config/vpn/ --config openvpn-client.ovpn --daemon'
+
+su - -c 'notify-send "$(hostname): Starting $VPN_CLIENT..." --icon=network-idle' user
+groupadd -rf qvpn ; sleep 2s
+sg qvpn -c "$VPN_CLIENT $VPN_OPTIONS"
