@@ -32,6 +32,7 @@ if [ $? = 0 ] ; then
     echo "script-security 2" >> $target_file
     echo "up 'qubes-vpn-handler.sh up'" >> $target_file
     echo "down 'qubes-vpn-handler.sh down'" >> $target_file
+    sed -i s^/.*/^^ $target_file
   else
     zenity --error --text="You need a config file\nCheck with your VPN provider"
     exit
