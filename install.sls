@@ -26,3 +26,10 @@ systemd-mask:
   file.managed:
     - source:
       - salt://openvpn/qubes-vpn-handler.sh
+
+/rw/config/vpn/install.sh
+  file.managed:
+    - source:
+      - salt://openvpn/install.sh
+    - mode: '0755'
+    - replace: True
