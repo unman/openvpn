@@ -1,9 +1,9 @@
 include:
-  - template-debian-10
+  - template-debian-11
 
 qvm-clone-id:
   qvm.clone:
     - require:
-      - sls: template-debian-10 
+      - sls: template-debian-11 
     - name: template-openvpn
-    - source: debian-10
+    - source: debian-11
