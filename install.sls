@@ -6,15 +6,20 @@ installed:
       - qubes-core-agent-networking
       - iproute
       - openvpn
+      - zenity
 
 systemd-disable:
   cmd.run:
     - name: systemctl disable openvpn
+    - name: systemctl disable openvpn-server@.service
+    - name: systemctl disable openvpn-client@.service
     - name: systemctl disable NetworkManager
 
 systemd-mask:
   cmd.run:
     - name: systemctl mask openvpn
+    - name: systemctl mask openvpn-server@.service
+    - name: systemctl mask openvpn-client@.service
     - name: systemctl mask NetworkManager
 
 /rw/config/vpn:
