@@ -7,8 +7,9 @@ ip6tables -I FORWARD -o eth0 -j DROP
 ip6tables -I FORWARD -i eth0 -j DROP
 
 #    Accept traffic to VPN
-iptables -P OUTPUT ACCEPT
+iptables -P OUTPUT DROP
 iptables -F OUTPUT
+iptables -I OUTPUT -o lo -j ACCEPT
 
 #    Add the `qvpn` group to system, if it doesn't already exist
 if ! grep -q "^qvpn:" /etc/group ; then
