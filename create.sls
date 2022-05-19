@@ -3,22 +3,22 @@ include:
 
 qvm-present-id:
   qvm.present:
-    - name: sys-openvpn
+    - name: sys-vpn
     - template: template-openvpn
     - label: green
 
 qvm-prefs-id:
   qvm.prefs:
-    - name: sys-openvpn
+    - name: sys-vpn
     - netvm: sys-firewall
-    - memory: 400
-    - maxmem: 4000
+    - memory: 300
+    - maxmem: 1000
     - vcpus: 2
-    - provides-network: true
+    - provides-network: True
 
 qvm-features-id:
   qvm.features:
-    - name: sys-openvpn
+    - name: sys-vpn
     - ipv6: ''
     - disable:
       - service.cups

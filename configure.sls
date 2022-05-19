@@ -12,4 +12,22 @@
     - source:
       - salt://openvpn/firewall.sh
     - mode: '0755'
-    -  replace: True
+    - replace: True
+
+/rw/config/vpn:
+  file.directory:
+    - mkdirs: True
+    - force: True
+
+/rw/config/vpn/qubes-vpn-handler.sh:
+  file.managed:
+    - source:
+      - salt://openvpn/qubes-vpn-handler.sh
+    - mode: '0755'
+
+/rw/config/vpn/install.sh:
+  file.managed:
+    - source:
+      - salt://openvpn/install.sh
+    - mode: '0755'
+    - replace: True
