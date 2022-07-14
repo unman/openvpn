@@ -13,3 +13,7 @@ vpn_menu:
     - set:
       - menu-items: "vpn_setup.desktop debian-xterm.desktop"
       - default-menu-items: "vpn_setup.desktop debian-xterm.desktop"
+
+start-template-openvpn:
+  qvm.start:
+    - name: template-openvpn

@@ -1,6 +1,14 @@
 include:
   - openvpn.clone
 
+'qvm-sync-appmenus template-openvpn':
+  cmd.run:
+    - runas: user
+
+finalise_menu:
+  qvm.shutdown:
+    - name: template-openvpn
+
 qvm-present-id:
   qvm.present:
     - name: sys-vpn
