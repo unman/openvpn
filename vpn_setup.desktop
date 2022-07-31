@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Categories=Network
+Comment=Simple configuration for openvpn
+Exec=/home/user/setup_mutt.sh
+Icon=
+Name=Setup_VPN
+Terminal=false
+Type=Application

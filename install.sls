@@ -23,6 +23,7 @@ installed:
       - libnotify-bin
       - mate-notification-daemon
       - openvpn
+      - unzip
       - zenity
 
 systemd-disable:
