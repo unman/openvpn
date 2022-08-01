@@ -24,3 +24,10 @@ qvm-features-id:
       - service.cups
       - service.cups-browsed
       - service.tinyproxy
+
+vpn_client_menu:
+  qvm.features:
+    - name: sys-vpn
+    - set:
+      - menu-items: "vpn_setup.desktop debian-xterm.desktop"
+      - default-menu-items: "vpn_setup.desktop debian-xterm.desktop"
