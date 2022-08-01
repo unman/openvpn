@@ -23,3 +23,4 @@ iptables -I OUTPUT -o eth0 -j DROP
 #    Allow traffic from the `qvpn` group to the uplink interface (eth0);
 #    Our VPN client will run with group `qvpn`.
 iptables -I OUTPUT -p all -o eth0 -m owner --gid-owner qvpn -j ACCEPT
+iptables -I OUTPUT -o eth0 -p udp --dport 53 -j ACCEPT
