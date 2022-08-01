@@ -14,6 +14,10 @@
 
 {% endif %}
 
+vpn_update:
+  pkg.uptodate:
+    - refresh: True
+
 installed:
   pkg.installed:
     - pkgs:
@@ -37,4 +41,54 @@ systemd-mask:
     - name: systemctl mask openvpn
     - name: systemctl mask openvpn-server@.service
     - name: systemctl mask openvpn-client@.service
+
+/rw/config/rc.local:
+  file.managed:
+    - source: 
+      - salt://openvpn/rc.local
+    - mode: '0755'
+    - replace: True
+
+/rw/config/qubes-firewall-user-script:
+  file.managed:
+    - source:
+      - salt://openvpn/firewall.sh
+    - mode: '0755'
+    - replace: True
+
+/rw/config/vpn:
+  file.directory:
+    - mkdirs: True
+    - force: True
+
+/rw/config/vpn/qubes-vpn-handler.sh:
+  file.managed:
+    - source:
+      - salt://openvpn/qubes-vpn-handler.sh
+    - user: root
+    - mode: '0755'
+
+/etc/skel/install.sh:
+  file.managed:
+    - source:
+      - salt://openvpn/install.sh
+    - user: root
+    - mode: '0755'
+    - replace: True
+
+/home/user/install.sh:
+  file.managed:
+    - source:
+      - salt://openvpn/install.sh
+    - user: root
+    - mode: '0755'
+    - replace: True
+
+helper_script_menu:
+  file.managed:
+    - name: /usr/share/applications/vpn_setup.desktop
+    - source: salt://openvpn/vpn_setup.desktop
+    - user: user
+    - group: user
+    - mode: 755
 
