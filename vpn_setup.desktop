@@ -3,7 +3,7 @@
 [Desktop Entry]
 Categories=Network
 Comment=Simple configuration for openvpn
-Exec=/home/user/setup_mutt.sh
+Exec=/home/user/install.sh
 Icon=
 Name=Setup_VPN
 Terminal=false

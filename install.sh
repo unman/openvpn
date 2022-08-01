@@ -1,17 +1,32 @@
 #!/bin/bash
+if [ "`id -u`" -ne 0 ]; then
+  exec sudo "$0"
+  exit 99
+fi
 target_file='/rw/config/vpn/openvpn-client.ovpn'
 cd /rw/config/vpn
-zenity --question --text="Have you copied all the openvpn config files to this directory?" --ok-label="Yes" --cancel-label="No"
+zenity --question --text="Do you have a zip file?" --ok-label="Yes" --cancel-label="No"
 if [ $? = 0 ] ; then
-  zenity --question --text="Please select the openvpn configuration file"
+  client_file=`zenity --file-selection`
+  if  [ $(mimetype -b $client_file) == "application/zip" ]; then
+    unzip -j -d /rw/config/vpn "$client_file"
+  else
+    zenity --error --text="That doesn't look like a zip file"
+    exit
+    fi
+fi
+zenity --question --text="Have you copied all the openvpn config files to /rw/config/vpn/ ?" --ok-label="Yes" --cancel-label="No"
+if [ $? = 0 ] ; then
+  zenity --question --text="Please select the openvpn configuration file" --ok-label="OK" --cancel-label="No"
   if [ $? = 0 ] ; then
     client_file=`zenity --file-selection`
     if grep -q '^client' "$client_file" ; then
       if [ "$client_file" != "$target_file" ]; then
         mv $client_file $target_file
       fi
-      grep -q '^redirect-gateway def1' $target_file || echo 'redirect-gateway def1' >> $target_file
-      details="$(zenity --forms --text="If you have a username and password, enter them here.\nOtherwise hit cancel." --add-entry username --add-entry password)"
+      sed  -i -r 's/(.*)redirect-gateway.*/\1/'  $target_file
+      grep -q '^redirect-gateway def1' $target_file || echo -e '\nredirect-gateway def1' >> $target_file
+      details="$(zenity --forms --text="If you do not have a file containing your login details, but have a username and password, enter them here.\nOtherwise hit cancel." --add-entry username --add-entry password)"
       if [ $? = 0 ]; then
         oIFS="$IFS"
         IFS="|"
@@ -21,7 +36,7 @@ if [ $? = 0 ] ; then
         IFS="$oIFS"
         unset oIFS
         if grep -q ^auth-user-pass $target_file; then
-          sed -i '/auth-user-pass/s/.*/auth-user-pass pass.txt/' $target_file
+          sed -i '/auth-user-pass/s/.*/ auth-user-pass pass.txt/' $target_file
         else
           echo "auth-user-pass pass.txt" >> $target_file
         fi
