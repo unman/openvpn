@@ -1,11 +1,10 @@
 #!/bin/bash
-set -e
 export PATH="$PATH:/usr/sbin:/sbin"
 
 case "$1" in
 
 up)
-iptables -D OUTPUT -o eth0 -p udp --dport 53 -j ACCEPT
+iptables -D OUTPUT -o eth0 -p udp --dport 53 -j ACCEPT || true
 # To override DHCP DNS, assign DNS addresses to 'vpn_dns' env variable before calling this script;
 # Format is 'X.X.X.X  Y.Y.Y.Y [...]'
 if [[ -z "$vpn_dns" ]] ; then
