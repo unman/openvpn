@@ -1,8 +1,8 @@
 This is a salt package to set up VPN gateway.  
 It follows the method detailed in the [Qubes docs](https://github.com/Qubes-Community/Contents/blob/master/docs/configuration/vpn.md) using iptables and CLI scripts.  
-The package creates a qube called sys-vpn based on the debian-11-minimal template.
+The package creates a qube called sys-vpn based on the debian-12-minimal template.
 
-If the debian-11-minimal template is not present, it will be downloaded and installed - this may take some time depending on your net connection.
+If the debian-12-minimal template is not present, it will be downloaded and installed - this may take some time depending on your net connection.
 
 There are minor changes to the firewall rules on sys-vpn to ensure blocking of outbound connections.
 
