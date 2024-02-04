@@ -1,0 +1,21 @@
+#!/usr/sbin/nft -f
+#    Block forwarding of connections through upstream network device
+#    (in case the vpn tunnel breaks):
+
+flush chain qubes custom-forward
+insert rule qubes custom-forward oifname eth0 drop
+insert rule qubes custom-forward iifname eth0 drop
+
+flush chain ip6 qubes custom-forward
+insert rule ip6 qubes custom-forward oifname eth0 drop
+insert rule ip6 qubes custom-forward iifname eth0 drop
+
+#    Accept traffic to VPN
+#    Allow traffic from the `qvpn` group to the uplink interface (eth0);
+#    Our VPN client will run with group `qvpn`.
+add chain ip qubes output { type filter hook output priority 0; policy drop; }
+add rule qubes output oifname eth0 meta skgid qvpn accept
+add rule qubes output oifname eth0 drop
+add rule qubes output oifname lo accept
+# Allow initial DNS before tunnel is set up.
+insert rule qubes output oifname eth0 udp dport 53 accept

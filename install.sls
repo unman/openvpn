@@ -57,9 +57,17 @@ systemd-mask:
     - mode: '0755'
     - replace: True
 
+/rw/config/qubes-firewall.d/firewall.nft:
+  file.managed:
+    - source:
+      - salt://openvpn/firewall.nft
+    - mode: '0755'
+    - replace: True
+    - makedirs: True
+
 /rw/config/vpn:
   file.directory:
-    - mkdirs: True
+    - makedirs: True
     - force: True
 
 /rw/config/vpn/qubes-vpn-handler.sh:

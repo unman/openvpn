@@ -15,9 +15,16 @@
     - mode: '0755'
     - replace: True
 
+/rw/config/firewall.nft:
+  file.managed:
+    - source:
+      - salt://openvpn/firewall.nft
+    - mode: '0755'
+    - replace: True
+
 /rw/config/vpn:
   file.directory:
-    - mkdirs: True
+    - makedirs: True
     - force: True
 
 /rw/config/vpn/qubes-vpn-handler.sh:
