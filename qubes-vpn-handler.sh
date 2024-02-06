@@ -25,8 +25,11 @@ fi
 if [[ -n "$vpn_dns" ]] ; then
     # Set DNS address translation in firewall:
     for addr in $vpn_dns; do
-	    nft insert rule qubes dnat-dns iifname vif* tcp dport 53 dnat to $addr
-	    nft insert rule qubes dnat-dns iifname vif* udp dport 53 dnat to $addr
+		if [ $addr == '8.8.8.8' ]; then
+      addr="9.9.9.9"
+    fi
+    nft insert rule qubes dnat-dns iifname vif* tcp dport 53 dnat to $addr
+    nft insert rule qubes dnat-dns iifname vif* udp dport 53 dnat to $addr
     done
     su - -c 'notify-send "$(hostname): LINK IS UP." --icon=network-idle' user
 else
