@@ -1,6 +1,8 @@
 include:
   - openvpn.clone
 
+{% set default_netvm = salt['cmd.shell']('qubes-prefs default_netvm') -%}
+
 'qvm-sync-appmenus template-openvpn':
   cmd.run:
     - runas: user
@@ -18,7 +20,7 @@ qvm-present-id:
 qvm-prefs-id:
   qvm.prefs:
     - name: sys-vpn
-    - netvm: sys-firewall
+    - netvm: {{ default_netvm }}
     - memory: 300
     - maxmem: 1000
     - vcpus: 2
